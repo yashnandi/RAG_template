@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PySpark Genie</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    /* ---------- Root Grid (10 x 15) ---------- */
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+      display: grid;
+      grid-template-rows: repeat(10, 1fr);
+      grid-template-columns: repeat(15, 1fr);
+      background: #f8f9fb;
+      font-family: Garamond, "EB Garamond", "Times New Roman", serif;
+      color: #222;
+      overflow: hidden;
+    }
+
+    /* ---------- Header ---------- */
+    .header {
+      grid-row: 1 / 2;
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .header img {
+      height: 56px;
+    }
+
+    .header-title {
+      font-size: 26px;
+      font-weight: bold;
+      text-align: center;
+      flex: 1;
+    }
+
+    /* ---------- Chat Region ---------- */
+    .chat-region {
+      grid-row: 3 / 9;     /* rows 3–8 */
+      grid-column: 3 / 14; /* columns 3–13 */
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    /* ---------- Input ---------- */
+    textarea {
+      width: 100%;
+      min-height: 60px;
+      max-height: 120px;
+      resize: vertical;
+      padding: 14px 18px;
+      font-size: 17px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-family: inherit;
+      margin-bottom: 12px;
+    }
+
+    button {
+      align-self: center;
+      padding: 10px 26px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #005eb8;
+      color: white;
+      transition: opacity 0.2s ease;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button:hover:not(:disabled) {
+      background: #004a94;
+    }
+
+    /* ---------- Response ---------- */
+    .response {
+      margin-top: 18px;
+      flex: 1;
+      overflow-y: auto;     /* scrollbar only here */
+      background: #f4f4f4;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      display: none;        /* hidden until first answer */
+    }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      grid-row: 10;
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      padding: 8px 0;
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 900px) {
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        order: 0;
+      }
+
+      .chat-region {
+        margin: 16px;
+        height: calc(100vh - 140px);
+        grid-row: auto;
+        grid-column: auto;
+      }
+
+      .footer {
+        order: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ---------- Header ---------- -->
+  <div class="header">
+    <img src="" alt="org" />
+    <div class="header-title">PySpark Genie</div>
+    <img src="" alt="lang" />
+  </div>
+
+  <!-- ---------- Chat + Response ---------- -->
+  <div class="chat-region">
+    <div class="section-title">Ask a Question</div>
+
+    <textarea id="q"></textarea>
+
+    <button id="askBtn" onclick="ask()" disabled>Ask</button>
+
+    <div id="out" class="response"></div>
+  </div>
+
+  <!-- ---------- Footer ---------- -->
+  <div class="footer">
+    Internal Tool · PySpark Genie · Knowledge Base
+  </div>
+
+  <script>
+    const textarea = document.getElementById("q");
+    const output = document.getElementById("out");
+    const askBtn = document.getElementById("askBtn");
+
+    // Enable Ask only when user types
+    textarea.addEventListener("input", () => {
+      askBtn.disabled = textarea.value.trim().length === 0;
+    });
+
+    // Enter = Ask | Shift+Enter = newline
+    textarea.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        if (!askBtn.disabled) ask();
+      }
+    });
+
+    async function ask() {
+      const q = textarea.value.trim();
+      if (!q) return;
+
+      askBtn.disabled = true;
+      output.style.display = "block";
+      output.innerText = "Thinking…";
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: q })
+      });
+
+      const data = await res.json();
+      output.innerText = data.answer;
+    }
+  </script>
+
+</body>
+</html>
