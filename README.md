@@ -31,20 +31,20 @@ Open Powershell.
 2. run python -m venv .venv
 3. run .venv\Scripts\Activate.ps1
 4. run pip install -r requirements.txt
-5. change GENIE_BUILD_INDEX=1 in .env if running for the first 
-time (after updates to knowledge base)
-6. python -c "import sys; sys.path.append('src'); import genie.config"
-7. python -c "import sys; sys.path.append('src'); import genie.cli.build_index.main; main()"
-8. uvicorn src.genie.frontend.api:app --reload --port 8001
+5. python -c "import sys; sys.path.append('src'); import genie.config"
+6. python -c "import sys; sys.path.append('src'); import genie.cli.build_index.main; main()"
+7. uvicorn src.genie.frontend.api:app --reload --port 8001
 
 # 4. Steps for launching the app
 
 1. run .venv\Scripts\Activate.ps1
 2. python -c "import sys; sys.path.append('src'); import genie.config"
-3. uvicorn src.genie.frontend.api:app --reload --port 8001
+3. change GENIE_BUILD_INDEX=1 in .env if running for the first 
+time after updates to knowledge base
+4. uvicorn src.genie.frontend.api:app --reload --port 8001
 
 # 5. List of supplementary folders/codes not used for the minimal app development and launch. (Useful for app upgrade)
-1. ./src/genie/cli\
-2. ./src/genie/frontend/routes/batch\
-3. ./src/genie/frontend/routes/eval\
+1. ./src/genie/cli
+2. ./src/genie/frontend/routes/batch
+3. ./src/genie/frontend/routes/eval
 
