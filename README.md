@@ -4,19 +4,17 @@ A minimal GPT-RAG-Windows chatbot repo. For example, if developing a chatbot tha
 # 2. Sections that need to be edited.
 
 ## 2.1 edit .env
-1. Add OPENAI API KEY \
-2. Model such as gpt-4o-mini \
-3. GENIE_BUILD_INDEX = 0 if chunking already done, GENIE_BUILD_INDEX = 1 if chunking needs to be done (when launching app - online).\
+1. Add OPENAI API KEY
+2. Model such as gpt-4o-mini
+3. GENIE_BUILD_INDEX = 0 if chunking already done, GENIE_BUILD_INDEX = 1 if chunking needs to be done (when launching app - online).
 
 ![.env file](./images/env.png)
 
 ## 2.2 edit knowledgebase
-1. Add your pdfs, industry expert notes and code files here \
-
-![knowledge base](./images/kb.png)
+1. Add your pdfs, industry expert notes and other relevant data here
 
 ## 2.3 edit embedding model name
-1. Add embedding model\
+1. Add embedding model
 
 ![Embedding model for RAG - Chunking and retrieval](./images/config.png)
 
