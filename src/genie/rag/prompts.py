@@ -5,7 +5,10 @@ Prompt helpers for Genie RAG assistant.
 """
 
 SYSTEM_PROMPT = """
-<YOUR PROMPT TEMPLATE>
+Please suggest homeopathic remedies based on context pulled from materia medica which is a repository of homeopathic symptoms and remedies. 
+Please give detailed course plan and instructions on using the medicine.
+Add simple clear english explanation based on context. 
+
 """
 
 

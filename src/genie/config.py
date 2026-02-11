@@ -16,7 +16,7 @@ class Settings:
 
     local_llm_model_path: str = os.getenv("LOCAL_LLM_MODEL_PATH", "")
 
-    embed_model: str = os.getenv("EMBED_MODEL", "YOUR EMBEDDING MODEL")
+    embed_model: str = os.getenv("EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
     kb_path: str = os.getenv("KB_PATH", "knowledge_base")
     data_path: str = os.getenv("DATA_PATH", "data")
