@@ -22,7 +22,8 @@ A minimal GPT-RAG-Windows chatbot repo. For example, if developing a chatbot tha
 ![Your Prompt template](./images/prompt.png)
 
 ## 2.5 Add relevant images for UI
-![Edit index.html in frontend. Add location of images of your organisation and language.](./images/index.png)
+Add location of images of your organisation and language.
+![Edit index.html in frontend.](./images/index.png)
 
 # 3. Steps for development and launching the app (First time)
 
